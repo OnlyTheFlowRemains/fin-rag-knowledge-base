@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fin-rag-knowledge-base"
+version = "0.1.0"
+description = "LangGraph-orchestrated RAG service for financial documents, with hybrid retrieval, compliance guardrails and offline evaluation."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "langgraph==1.1.9",
+    "fastapi==0.136.1",
+    "uvicorn==0.51.0",
+    "pydantic==2.13.3",
+    "numpy==2.4.4",
+]
+
+[project.optional-dependencies]
+# Real embedding + reranker models. Not needed for tests or the offline demo,
+# so left unpinned — pin it yourself once you have picked a model revision.
+semantic = [
+    "sentence-transformers>=3.0",
+]
+# Any OpenAI-compatible provider (Qwen/DashScope, DeepSeek, vLLM, Ollama).
+llm = [
+    "openai==2.32.0",
+]
+dev = [
+    "pytest==9.1.1",
+    "httpx==0.28.1",
+    "ruff>=0.6",
+]
+
+[tool.setuptools.packages.find]
+include = ["fin_rag*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
