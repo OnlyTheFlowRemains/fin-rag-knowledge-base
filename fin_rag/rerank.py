@@ -7,7 +7,7 @@ pipeline still returns fused results instead of erroring.
 
 from __future__ import annotations
 
-from typing import Sequence
+from collections.abc import Sequence
 
 from .embeddings import ngrams
 from .llm import LLM
@@ -99,7 +99,7 @@ class TorchReranker:  # pragma: no cover - requires optional heavy extra
                 dense_rank=item.dense_rank,
                 sparse_rank=item.sparse_rank,
             )
-            for item, score in zip(results, scores)
+            for item, score in zip(results, scores, strict=False)
         ]
         rescored.sort(key=lambda s: -s.score)
         return rescored[:top_k]

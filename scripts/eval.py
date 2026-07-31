@@ -43,7 +43,11 @@ def _build(*, use_hyde: bool = True, use_rerank: bool = True) -> RagPipeline:
     llm = (
         MockLLM()
         if settings.llm_provider == "mock"
-        else build_llm(settings.llm_provider, model=settings.llm_model, base_url=settings.llm_base_url)
+        else build_llm(
+            settings.llm_provider,
+            model=settings.llm_model,
+            base_url=settings.llm_base_url,
+        )
     )
     return RagPipeline(retriever=retriever, llm=llm, settings=settings)
 

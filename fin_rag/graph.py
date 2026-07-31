@@ -18,8 +18,9 @@ makes every path testable in isolation and keeps the trace readable.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Any, Sequence, TypedDict
+from typing import Any, TypedDict
 
 from langgraph.graph import END, StateGraph
 

@@ -14,7 +14,8 @@ from __future__ import annotations
 import hashlib
 import math
 import re
-from typing import Iterable, Protocol, Sequence, runtime_checkable
+from collections.abc import Iterable, Sequence
+from typing import Protocol, runtime_checkable
 
 import numpy as np
 

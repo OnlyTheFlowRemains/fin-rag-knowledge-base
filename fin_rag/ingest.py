@@ -8,9 +8,9 @@ what makes answers auditable ("where did this number come from").
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Sequence
 
 from .chunking import Chunk, chunk_document
 from .config import Settings, load_settings

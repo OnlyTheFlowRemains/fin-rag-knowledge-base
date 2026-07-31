@@ -9,8 +9,8 @@ from __future__ import annotations
 
 import math
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Sequence
 
 import numpy as np
 
@@ -103,7 +103,12 @@ class HybridRetriever:
         return _top_indices(scores, k)
 
     def search(
-        self, query: str, *, top_k: int = 4, candidate_k: int = 12, extra_queries: Sequence[str] = ()
+        self,
+        query: str,
+        *,
+        top_k: int = 4,
+        candidate_k: int = 12,
+        extra_queries: Sequence[str] = (),
     ) -> list[Scored]:
         """RRF over every (query, retriever) pair.
 

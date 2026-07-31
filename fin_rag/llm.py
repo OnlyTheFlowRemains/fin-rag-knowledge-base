@@ -8,7 +8,8 @@ swapping Qwen for DeepSeek/OpenAI is a config change, not a refactor.
 from __future__ import annotations
 
 import re
-from typing import Iterator, Protocol, Sequence, runtime_checkable
+from collections.abc import Iterator, Sequence
+from typing import Protocol, runtime_checkable
 
 
 @runtime_checkable
@@ -66,9 +67,9 @@ class OpenAICompatibleLLM:
     Moonshot, vLLM, Ollama). Imported lazily so `openai` stays optional."""
 
     def __init__(self, *, model: str, base_url: str, api_key: str | None = None) -> None:
-        from openai import OpenAI  # local import: optional dependency
-
         import os
+
+        from openai import OpenAI  # local import: optional dependency
 
         self.model = model
         self._client = OpenAI(base_url=base_url, api_key=api_key or os.getenv("LLM_API_KEY", ""))
@@ -107,7 +108,23 @@ def build_llm(provider: str, *, model: str, base_url: str) -> LLM:
     raise ValueError(f"unknown LLM provider: {provider!r}")
 
 
-_CJK_STOP = {"的", "了", "是", "在", "和", "与", "对", "有", "为", "及", "请", "问", "吗", "如何", "什么"}
+_CJK_STOP = {
+    "的",
+    "了",
+    "是",
+    "在",
+    "和",
+    "与",
+    "对",
+    "有",
+    "为",
+    "及",
+    "请",
+    "问",
+    "吗",
+    "如何",
+    "什么",
+}
 
 
 def _tokens(text: str) -> list[str]:

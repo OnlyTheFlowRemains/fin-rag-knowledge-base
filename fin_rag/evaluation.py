@@ -14,8 +14,8 @@ no LLM judge, so they run in CI.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Sequence
 
 from .embeddings import ngrams
 from .graph import RagPipeline

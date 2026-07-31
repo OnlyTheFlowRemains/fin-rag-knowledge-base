@@ -7,7 +7,8 @@ an SSE one, because a RAG answer takes seconds and users abandon a spinner.
 from __future__ import annotations
 
 import json
-from typing import Any, Iterator
+from collections.abc import Iterator
+from typing import Any
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
@@ -55,7 +56,9 @@ def create_app(pipeline: RagPipeline | None = None) -> FastAPI:
     app = FastAPI(
         title="Financial Knowledge Base (RAG)",
         version="0.1.0",
-        description="LangGraph-orchestrated hybrid-retrieval RAG service with compliance guardrails.",
+        description=(
+            "LangGraph-orchestrated hybrid-retrieval RAG service with compliance guardrails."
+        ),
     )
     if pipeline is not None:
         state.pipeline = pipeline
